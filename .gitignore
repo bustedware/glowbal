@@ -1,0 +1,9 @@
+python/
+glow/index.py
+iac/.terraform
+iac/.terraform.lock.hcl
+iac/terraform.tfvars
+iac/terraform.tfstate
+iac/terraform.tfstate.backup
+glow.zip
+lambda_layer.zip

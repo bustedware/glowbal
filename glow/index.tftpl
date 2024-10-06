@@ -1,0 +1,171 @@
+import os, base64, mimetypes, urllib.parse, pymongo, json
+from datetime import datetime
+from string import Template
+
+def getWeekSummaryFromDatabase(conn_str, currentWeek):
+    daoclient = pymongo.MongoClient(conn_str, serverSelectionTimeoutMS=5000)
+    weekSummary = daoclient["glow"]["summary"].find_one({"week": currentWeek})
+    return {
+        'statusCode': 200,
+        'headers': {
+            'Content-Type': 'application/json'
+        },
+        'body': json.dumps(transformWeekSummary(weekSummary))
+    }
+
+def transformWeekSummary(weekSummary):
+    points = []
+    for key in weekSummary.keys():
+        if key not in ["total", "last_modified", "_id", "week"]:
+            points.append({
+                "lat": weekSummary[key]["latitude"],
+                "lon": weekSummary[key]["longitude"],
+                "title": "shortId: " + str(key),
+                "description": f'power: {round(weekSummary[key]["power"], 2)}<br>impact: {round(weekSummary[key]["impactRate"])}<br>carbon: {round(weekSummary[key]["carbonOffset"], 4)}<br>protocol fee: {weekSummary[key]["protocolFee"]}'
+            })
+    return {
+        "total": {
+            "devices": weekSummary["total"]["devices"],
+            "carbonOffset": round(weekSummary["total"]["carbonOffset"], 4),
+            "power": round(weekSummary["total"]["power"], 2),
+            "impactRate": round(weekSummary["total"]["impactRate"]),
+        },
+        "points": points
+    }
+
+
+def handler(event, context):
+    # dbms
+    mdbserver = "${mdbserver}"
+    aws_acc = os.environ["AWS_ACCESS_KEY_ID"];
+    aws_sec = urllib.parse.quote_plus(os.environ["AWS_SECRET_ACCESS_KEY"])
+    aws_session = urllib.parse.quote_plus(os.environ["AWS_SESSION_TOKEN"])
+    conn_str = f"mongodb+srv://{aws_acc}:{aws_sec}@{mdbserver}/?authSource=%24external&authMechanism=MONGODB-AWS&authMechanismProperties=AWS_SESSION_TOKEN:{aws_session}"
+
+    # Get the requested path
+    path = event.get('path', '/')
+    # If the root is requested, serve the index.html file
+    if path == '/' or path == '/index.html':
+        currentWeek = getCurrentWeek(datetime.now().strftime("%Y-%m-%d"))
+        daoclient = pymongo.MongoClient(conn_str, serverSelectionTimeoutMS=5000)
+        weekSummary = daoclient["glow"]["summary"].find_one({"week": currentWeek})
+        return serve_html_file('index.html', weekSummary, currentWeek)
+    
+    # If an image asset is requested, serve the image file
+    elif "/week" in path:
+        if event.get('queryStringParameters'):
+            currentWeek = getCurrentWeek(datetime.now().strftime("%Y-%m-%d"))
+            try:
+                week = int(event.get('queryStringParameters').get("id", currentWeek))
+                file_path = os.path.join(os.path.dirname(__file__), f"data/summary_{week}.json")
+                if week < currentWeek:
+                    if os.path.exists(file_path):
+                        with open(file_path, 'r') as file:
+                            weekSummary = json.loads(file.read())
+                        return {
+                            'statusCode': 200,
+                            'headers': {
+                                'Content-Type': 'application/json'
+                            },
+                            'body': json.dumps(transformWeekSummary(weekSummary))
+                        }
+                    else:
+                        return getWeekSummaryFromDatabase(conn_str, currentWeek)
+                else:
+                    return getWeekSummaryFromDatabase(conn_str, currentWeek)
+            except:
+                return get404Response()
+
+    # If the path is not found, return a 404
+    return get404Response()
+
+def serve_html_file(file_name, weekSummary, currentWeek):
+    file_path = os.path.join(os.path.dirname(__file__), file_name)
+    try:
+        with open(file_path, 'r') as file:
+            html_template = Template(file.read())
+        
+        weekSelector = ""
+        for i in range(0, currentWeek+1):
+            if i == currentWeek:
+                weekSelector = weekSelector + f'<option value="{i}" selected>Week {i}</option>'
+            else:
+                weekSelector = weekSelector + f'<option value="{i}">Week {i}</option>'
+
+        points = ""
+        for key in weekSummary.keys():
+            if key not in ["total", "last_modified", "_id", "week"]:
+                description = f'power: {round(weekSummary[key]["power"], 2)}<br>impact: {round(weekSummary[key]["impactRate"])}<br>carbon: {round(weekSummary[key]["carbonOffset"], 4)}<br>protocol fee: {weekSummary[key]["protocolFee"]}'
+                points = points + f'{{ lat: {weekSummary[key]["latitude"]}, lon: {weekSummary[key]["longitude"]}, title: "shortId: {key}", description: "{description}"}},'
+
+        html_content = html_template.substitute(
+            totalDevices=weekSummary["total"]["devices"],
+            totalCarbonCredits=round(weekSummary["total"]["carbonOffset"], 4),
+            totalPower=round(weekSummary["total"]["power"], 2),
+            impactRate=round(weekSummary["total"]["impactRate"]),
+            weekSelector=weekSelector,
+            points=points
+        )
+        
+        return {
+            'statusCode': 200,
+            'headers': {
+                'Content-Type': 'text/html',
+                'Cache-Control': 'max-age=3600'  # Cache for 1 hour
+            },
+            'body': html_content
+        }
+    
+    except Exception as e:
+        return getErrorResponse(e)
+
+def serve_asset_file(file_name):
+    file_path = os.path.join(os.path.dirname(__file__), file_name)
+    
+    try:
+        # Determine the MIME type (e.g., image/png, image/jpeg)
+        mime_type, _ = mimetypes.guess_type(file_path)
+
+        # Read the binary content of the image file
+        with open(file_path, 'rb') as file:
+            file_content = file.read()
+
+        # Return the file as a base64-encoded string (for binary files like images)
+        return {
+            'statusCode': 200,
+            'headers': {
+                'Content-Type': mime_type or 'application/octet-stream',
+                'Content-Transfer-Encoding': 'base64',
+                'Access-Control-Allow-Origin': '*'
+            },
+            'body': base64.b64encode(file_content).decode('utf-8'),
+            'isBase64Encoded': True
+        }
+    
+    except Exception as e:
+        return getErrorResponse(e)
+
+def getCurrentWeek(end_date_str):
+    start_date = datetime.strptime("2023-11-19", "%Y-%m-%d")
+    end_date = datetime.strptime(end_date_str, "%Y-%m-%d")
+    difference_in_days = (end_date - start_date).days
+    weeks = difference_in_days // 7
+    return weeks
+
+def get404Response():
+    return {
+        'statusCode': 404,
+        'headers': {
+            'Content-Type': 'text/plain'
+        },
+        'body': '404 Not Found'
+    }
+
+def getErrorResponse(e):
+    return {
+        'statusCode': 500,
+        'headers': {
+            'Content-Type': 'text/plain'
+        },
+        'body': f"Error: {str(e)}"
+    }

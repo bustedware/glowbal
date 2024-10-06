@@ -1,0 +1,36 @@
+{
+    "1": {
+        "power": 133.433338,
+        "impactRate": 446.68299714078984,
+        "carbonOffset": 0.05960240333633995,
+        "latitude": 40.77898,
+        "longitude": -111.9221,
+        "protocolFee": 10675.24,
+        "publicKey": "0xcc437c465421e81beda4413166569aef4613494f6f22f5d04fc221fc108c1ae3"
+    },
+    "5": {
+        "power": 149.960831,
+        "impactRate": 449.7057541080886,
+        "carbonOffset": 0.06743824859153075,
+        "latitude": 40.48639,
+        "longitude": -112.0324,
+        "protocolFee": 20675.9,
+        "publicKey": "0xe77caf2d3ec3e6447d9632f41d7155a9abbe0e188ac8e013d8e4b1f632691674"
+    },
+    "6": {
+        "power": 152.467623,
+        "impactRate": 452.215597456584,
+        "carbonOffset": 0.06894823722773025,
+        "latitude": 40.48639,
+        "longitude": -112.0324,
+        "protocolFee": 20675.9,
+        "publicKey": "0xec40f7b230b24e8092c2e978c8d8b3578f4ecb052d5a197b1a92cbfe581364ad"
+    },
+    "total": {
+        "devices": 3,
+        "carbonOffset": 0.19598888915560095,
+        "power": 435.86179200000004,
+        "impactRate": 449.5347829018208
+    },
+    "week": 6
+}

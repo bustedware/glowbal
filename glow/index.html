@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Glowbal</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; }
+
+        /* Container for the right HUD */
+        #hud {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px; /* Width of the right column */
+            height: 100vh; /* Full height */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Individual property boxes */
+        .property-box {
+            width: 100%;
+            background-color: #fff;
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            color: #333;
+            font-size: 16px;
+        }
+
+        /* Optional: Styling for the labels and values */
+        .property-label {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #222;
+        }
+
+        .property-value {
+            font-size: 24px;
+            color: #555;
+        }
+
+        /* Tooltip styling */
+        #tooltip {
+            position: absolute;
+            display: none;
+            background-color: #fff;
+            border: 2px solid #333;
+            padding: 10px;
+            border-radius: 8px;
+            pointer-events: none;
+            font-size: 14px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+            max-width: 200px;
+            z-index: 1000;
+        }
+
+        /* Tooltip arrow */
+        #tooltip::after {
+            content: "";
+            position: absolute;
+            bottom: -10px; /* Adjust based on tooltip position */
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 10px;
+            border-style: solid;
+            border-color: #fff transparent transparent transparent;
+        }
+
+        /* Tooltip header */
+        #tooltip h3 {
+            margin: 0 0 5px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        /* Tooltip content */
+        #tooltip p {
+            margin: 0;
+            color: #555;
+        }
+
+        #clock {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 48px;
+            color: white;
+            text-shadow: 1px 1px 2px black;
+        }
+        /* Style for centering the text in the dropdown */
+        select {
+            text-align: center;          /* Center text in some browsers */
+            text-align-last: center;      /* Center text in most browsers */
+            width: 150px;                 /* Set a fixed width for better alignment */
+            padding: 5px;                 /* Add padding to the select box */
+            margin: 20px;                 /* Optional: margin to center the dropdown itself */
+        }
+    </style>
+</head>
+<body>
+    <div id="tooltip">
+        <h3 id="tooltip-title"></h3>
+        <p id="tooltip-content"></p>
+    </div>
+    <div id="clock"></div>
+    <!-- The right-side HUD -->
+    <div id="hud">
+        <div class="property-box">
+            <div class="property-label">Active solar farms</div>
+            <div class="property-value" id="latitude">${totalDevices}</div>
+        </div>
+        <div class="property-box">
+            <div class="property-label">Total power (kWh)</div>
+            <div class="property-value" id="zoom">${totalPower}</div>
+        </div>
+        <div class="property-box">
+            <div class="property-label">Average impact (kg/MWh)</div>
+            <div class="property-value" id="local-time">${impactRate}</div>
+        </div>
+        <div class="property-box">
+            <div class="property-label">Carbon credits (g/MWh)</div>
+            <div class="property-value" id="longitude">${totalCarbonCredits}</div>
+        </div>
+        <div class="property-box">
+            <div class="property-value" id="local-time">
+                <select id="weekSelector" name="weekSelector">
+                    ${weekSelector}
+                </select>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.rawgit.com/mrdoob/three.js/r128/examples/js/controls/OrbitControls.js"></script>
+    <script>
+        // Define points (latitude, longitude)
+        const points = [
+            ${points}
+        ];
+
+        // Set up the scene
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(
+            75, window.innerWidth / window.innerHeight, 0.1, 1000
+        );
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+        
+        const loader = new THREE.TextureLoader();
+        const decoder = new TextDecoder('utf-8');
+
+        // Function to convert latitude and longitude to 3D coordinates
+        function latLonToVector3(lat, lon, radius) {
+            const phi = (90 - lat) * (Math.PI / 180);
+            const theta = (lon + 180) * (Math.PI / 180);
+
+            const x = -(radius * Math.sin(phi) * Math.cos(theta));
+            const y = radius * Math.cos(phi);
+            const z = radius * Math.sin(phi) * Math.sin(theta);
+
+            return new THREE.Vector3(x, y, z);
+        }
+
+        function getTotalSeconds() {
+            const now = new Date();
+            const utcHours = now.getUTCHours();
+            const utcMinutes = now.getUTCMinutes();
+            const utcSeconds = now.getUTCSeconds();
+            const utcMilliseconds = now.getUTCMilliseconds();
+
+            const totalSeconds = utcHours * 3600 + utcMinutes * 60 + utcSeconds + utcMilliseconds / 1000;
+            return totalSeconds;
+        }
+
+        // Tooltip setup
+        const tooltip = document.getElementById('tooltip');
+        const tooltipTitle = document.getElementById('tooltip-title');
+        const tooltipContent = document.getElementById('tooltip-content');
+
+        // Clock display
+        const clockDiv = document.getElementById('clock');
+
+        // Raycaster for detecting hover
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+
+        let hoveredSprite = null; // Store the currently hovered sprite
+
+        // Variables to store mouse position
+        let mouseX = 0;
+        let mouseY = 0;
+
+        // Function to format time as HH:MM:SS UTC
+        function formatTime(now) {
+            const utcHours = now.getUTCHours();
+            const utcMinutes = now.getUTCMinutes();
+            const utcSeconds = now.getUTCSeconds();
+            return ('0' + utcHours).slice(-2) + ':' + ('0' + utcMinutes).slice(-2) + ':' + ('0' + utcSeconds).slice(-2) + ' UTC';
+        }
+
+        const skyboxRotationSpeed = 0.0001;
+
+        var dayTexture = null, nightTexture = null, starTexture = null;
+        var markerTexture = null, hoverTexture = null;
+        
+        async function load_objects() {
+            dayTexture = loader.load("https://glowbal.s3.amazonaws.com/earth_texture.jpg")
+            nightTexture = loader.load("https://glowbal.s3.amazonaws.com/earth_nighttime.jpg")
+            starTexture = loader.load("https://glowbal.s3.amazonaws.com/stars.png")
+            markerTexture = loader.load("https://glowbal.s3.amazonaws.com/solar.png")
+            hoverTexture = loader.load("https://glowbal.s3.amazonaws.com/solarhover.png")
+        
+            // sky box
+            const skyboxGeometry = new THREE.BoxGeometry(1000, 1000, 1000);
+            const skyboxMaterial = new THREE.MeshBasicMaterial({
+                map: starTexture,
+                side: THREE.BackSide // The texture needs to be inside the cube
+            })
+            const skybox = new THREE.Mesh(skyboxGeometry, [skyboxMaterial, skyboxMaterial, skyboxMaterial, skyboxMaterial, skyboxMaterial, skyboxMaterial]);
+            scene.add(skybox);
+            
+            // Create a sphere for the Earth
+            const geometry = new THREE.SphereGeometry(5, 64, 64);
+
+            // Create a custom shader material
+            const material = new THREE.ShaderMaterial({
+                uniforms: {
+                    dayTexture: { value: dayTexture },
+                    nightTexture: { value: nightTexture },
+                    lightDirection: { value: new THREE.Vector3(-1, 0, 0) },
+                    minBrightness: { value: 1.0 }
+                },
+                vertexShader: `
+                    varying vec3 vNormalWorld;
+                    varying vec2 vUv;
+                    void main() {
+                        vUv = uv;
+                        vNormalWorld = normalize((modelMatrix * vec4(normal, 0.0)).xyz);
+                        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                    }
+                `,
+                fragmentShader: `
+                    uniform sampler2D dayTexture;
+                    uniform sampler2D nightTexture;
+                    uniform vec3 lightDirection;
+                    uniform float minBrightness;
+                    varying vec3 vNormalWorld;
+                    varying vec2 vUv;
+                    
+                    void main() {
+                        // Calculate brightness based on the normal and light direction
+                        float brightness = dot(normalize(vNormalWorld), lightDirection);
+                        
+                        // Sample day and night textures
+                        vec4 dayColor = texture2D(dayTexture, vUv);
+                        vec4 nightColor = texture2D(nightTexture, vUv);
+                        
+                        // Blend the day and night textures based on brightness
+                        vec4 color = mix(nightColor, dayColor, smoothstep(0.0, 0.25, brightness));
+                        
+                        // Apply shading to the color
+                        color.rgb *= max(brightness, minBrightness); // Ensure no negative values
+                        gl_FragColor = color;
+                    }
+                `
+            });
+
+            const earth = new THREE.Mesh(geometry, material);
+
+            // Add the Earth to the scene
+            scene.add(earth);
+
+            // Set the camera position
+            const northAmericaPosition = latLonToVector3(40.7128, -95.0060, 5); // 5 is the radius of the Earth
+            camera.position.set(northAmericaPosition.x, northAmericaPosition.y * 2, northAmericaPosition.z * 3);
+            const initialCameraDistance = camera.position.length();
+
+            // Add OrbitControls
+            const controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.25;
+            controls.minDistance = 6; 
+            controls.maxDistance = 15;
+
+            // Add directional light to simulate the sun (static)
+            const light = new THREE.DirectionalLight(0xffffff, 1);
+            light.position.set(1, 0, 0); // Light coming from positive X direction
+            scene.add(light);
+
+            function getRotationAmount() {
+                const rotationAmount = (getTotalSeconds() / 86400) * 2 * Math.PI;
+                return rotationAmount;
+            }
+
+            // Create a SpriteMaterial with the marker texture
+            const spriteMaterial = new THREE.SpriteMaterial({ map: markerTexture, sizeAttenuation: false });
+            const hoverSpriteMaterial = new THREE.SpriteMaterial({ map: hoverTexture, sizeAttenuation: false });
+
+            // Array to store sprites for scaling
+            const sprites = [];
+            const initialScale = 0.10;
+            const minScale = 0.05;
+            const maxScale = 0.25;
+
+            updateSprites(earth, points, sprites, spriteMaterial);
+            function updateSprites(earth, points, sprites, spriteMaterial) {
+                // Remove old sprites from the earth object
+                sprites.forEach(sprite => {
+                    earth.remove(sprite);
+                });
+
+                // Clear the sprites array
+                sprites.length = 0;
+
+                // Create new sprites based on new points
+                points.forEach(point => {
+                    const position = latLonToVector3(point.lat, point.lon, 5.05);
+                    const sprite = new THREE.Sprite(spriteMaterial);
+                    sprite.position.copy(position);
+                    sprite.userData = point;
+
+                    // Set initial scale
+                    sprite.scale.set(initialScale, initialScale, 1);
+
+                    // Add the sprite to the array
+                    sprites.push(sprite);
+
+                    // Add the sprite as a child of the Earth
+                    earth.add(sprite);
+                });
+            }
+
+            // Animation loop
+            function animate() {
+                requestAnimationFrame(animate);
+                skybox.rotation.y += skyboxRotationSpeed;
+                earth.rotation.y = getRotationAmount();
+                controls.update();
+                renderer.render(scene, camera);
+
+                // Update sprite scales based on zoom
+                const currentCameraDistance = camera.position.length() * 2;
+                const scaleFactor = initialCameraDistance/currentCameraDistance;
+                const unscaledScale = initialScale * scaleFactor * 0.5;
+                const clampedScale = THREE.MathUtils.clamp(unscaledScale, minScale, maxScale);
+
+                sprites.forEach(sprite => {
+                    sprite.scale.set(clampedScale, clampedScale, 1);
+                });
+
+                // Handle mouse hover
+                raycaster.setFromCamera(mouse, camera);
+                const intersects = raycaster.intersectObjects(earth.children, true);
+                if (intersects.length > 0) {
+                    const intersectedObject = intersects[0].object;
+                    tooltip.style.display = 'block';
+
+                    // Update tooltip content
+                    tooltipTitle.textContent = intersectedObject.userData.title;
+                    tooltipContent.innerHTML = intersectedObject.userData.description + "<br>" + "latitude: " + intersectedObject.userData.lat + "<br>longitude: " + intersectedObject.userData.lon;
+
+                    // Position the tooltip
+                    tooltip.style.left = (mouseX + 15) + 'px'; // Offset to avoid cursor overlap
+                    tooltip.style.top = (mouseY - tooltip.offsetHeight - 15) + 'px';
+
+                } else {
+                    tooltip.style.display = 'none';
+                }
+
+                // Update the clock display
+                clockDiv.innerHTML = formatTime(new Date());
+            }
+
+            const weekSelector = document.getElementById('weekSelector');
+            weekSelector.addEventListener('change', function() {
+                // Log the selected value
+                const selectedWeek = weekSelector.value;
+                console.log('Selected week:', selectedWeek);
+
+                // Construct the URL with the selected week value (if needed)
+                const url = "https://www.glowbal.earth/week?id=" + selectedWeek;
+
+                // Fetch data from the URL
+                fetch(url)
+                    .then(response => {
+                        // Check if the response is ok (status code in the range 200-299)
+                        if (!response.ok) {
+                            throw new Error("HTTP error! status: " + response.status);
+                        }
+                        // Parse the JSON response
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Do something with the fetched data
+                        console.log('Data received:', data);
+                        updateSprites(earth, data.points, sprites, spriteMaterial);
+                        updatePropertyValues(
+                            data.total.devices,
+                            data.total.power,
+                            data.total.impactRate,
+                            data.total.carbonOffset
+                        )
+                        
+                    })
+                    .catch(error => {
+                        // Handle any errors
+                        console.error('Error fetching data:', error);
+                    });
+            });
+
+            function updatePropertyValues(totalDevices, totalPower, impactRate, totalCarbonCredits) {
+                // Update the "Active solar farms" value
+                document.getElementById('latitude').textContent = totalDevices;
+
+                // Update the "Total power (kWh)" value
+                document.getElementById('zoom').textContent = totalPower;
+
+                // Update the "Average impact (kg/MWh)" value
+                document.getElementById('local-time').textContent = impactRate;
+
+                // Update the "Carbon credits (g/MWh)" value
+                document.getElementById('longitude').textContent = totalCarbonCredits;
+            }
+
+            // Handle mouse move
+            window.addEventListener('mousemove', (event) => {
+                mouseX = event.clientX;
+                mouseY = event.clientY;
+                
+                mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+                mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+                raycaster.setFromCamera(mouse, camera);
+                const intersects = raycaster.intersectObjects(sprites);
+
+                if (intersects.length > 0) {
+                    const intersectedSprite = intersects[0].object;
+                    if (hoveredSprite !== intersectedSprite) {
+                        if (hoveredSprite) {
+                            // Revert to original texture
+                            hoveredSprite.material = spriteMaterial.clone();
+                        }
+                        // Apply hover texture
+                        intersectedSprite.material = hoverSpriteMaterial.clone();
+                        hoveredSprite = intersectedSprite;
+                    }
+                } else if (hoveredSprite) {
+                    // Reset hover state when no longer hovering
+                    hoveredSprite.material = spriteMaterial.clone();
+                    hoveredSprite = null;
+                }
+            });
+
+            // Handle mouse click
+            window.addEventListener('click', () => {
+                raycaster.setFromCamera(mouse, camera);
+                const intersects = raycaster.intersectObjects(sprites);
+
+                if (intersects.length > 0) {
+                    const clickedSprite = intersects[0].object;
+                    console.log("You clicked on: " + clickedSprite.userData.title);
+                }
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+            
+            animate();
+        }
+        
+        load_objects();
+    </script>
+</body>
+</html>

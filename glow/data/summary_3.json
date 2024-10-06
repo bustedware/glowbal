@@ -1,0 +1,18 @@
+{
+    "1": {
+        "power": 0.0,
+        "impactRate": 0.0,
+        "carbonOffset": 0.0,
+        "latitude": 40.77898,
+        "longitude": -111.9221,
+        "protocolFee": 10675.24,
+        "publicKey": "0xcc437c465421e81beda4413166569aef4613494f6f22f5d04fc221fc108c1ae3"
+    },
+    "total": {
+        "devices": 1,
+        "carbonOffset": 0.0,
+        "power": 0.0,
+        "impactRate": 0
+    },
+    "week": 3
+}

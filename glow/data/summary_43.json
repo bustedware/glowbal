@@ -1,0 +1,531 @@
+{
+    "265": {
+        "power": 346.335974,
+        "impactRate": 103.23494666150798,
+        "carbonOffset": 0.035753965274292136,
+        "latitude": 37.52161577,
+        "longitude": -122.34751758,
+        "protocolFee": 71997.21,
+        "publicKey": "0x94a85bdacd9c68351d54b6bae244e1053c995b306ed9d03f8cb0cee9b64f178b"
+    },
+    "430": {
+        "power": 0.0,
+        "impactRate": 0.0,
+        "carbonOffset": 0.0,
+        "latitude": 40.69028654,
+        "longitude": -111.96009327,
+        "protocolFee": 12168.56,
+        "publicKey": "0x7c7d92b79f5983267432ed420e1a4229c2e3483f3e8574f56c7e88f331c85d32"
+    },
+    "370": {
+        "power": 280.623691,
+        "impactRate": 403.23495460309005,
+        "carbonOffset": 0.11315727621326302,
+        "latitude": 37.01369681,
+        "longitude": -93.79819001,
+        "protocolFee": 0.0,
+        "publicKey": "0xbe9b7009c4f88afa6c5cfc471a0df306f41c2704e7710292da6ec4134feb1a77"
+    },
+    "28": {
+        "power": 74.548967,
+        "impactRate": 445.81766081600404,
+        "carbonOffset": 0.033234964604586616,
+        "latitude": 40.6468,
+        "longitude": -111.907,
+        "protocolFee": 6769.17,
+        "publicKey": "0x4b152d5968166c634fda67fddeb643985b96fa9d6ae688eb838f8ed619bf2764"
+    },
+    "70": {
+        "power": 557.167421,
+        "impactRate": 464.9926196577428,
+        "carbonOffset": 0.25907864211383563,
+        "latitude": 38.4428174,
+        "longitude": -85.182987,
+        "protocolFee": 18359.19,
+        "publicKey": "0x900818d3050a9a9514bcde8d725d1f078b6dc14b20e8b67239144b2d9edfb497"
+    },
+    "230": {
+        "power": 213.729709,
+        "impactRate": 445.70163076637164,
+        "carbonOffset": 0.09525889235705233,
+        "latitude": 40.789561,
+        "longitude": -111.86657,
+        "protocolFee": 26747.4,
+        "publicKey": "0x4b1acd8a8c79f2f7021e38b1ee5519d3e6f968fb83794fcbe2479ba065ffbe25"
+    },
+    "125": {
+        "power": 248.243195,
+        "impactRate": 445.46659542010366,
+        "carbonOffset": 0.11058322463889599,
+        "latitude": 40.7785107,
+        "longitude": -111.93461373,
+        "protocolFee": 15528.58,
+        "publicKey": "0x2f6862c40d6f8c6d53ca3461abcaedfce716d5b1ad0ee70842bbd36d09d9c86a"
+    },
+    "420": {
+        "power": 178.841383,
+        "impactRate": 282.9804520540547,
+        "carbonOffset": 0.05060861540731222,
+        "latitude": 39.53570163,
+        "longitude": -104.96623774,
+        "protocolFee": 24509.88,
+        "publicKey": "0xd53c6c1a0cf5a6da80f65d26628f396b0daddcdd41dda24c450753129571720e"
+    },
+    "255": {
+        "power": 260.71468,
+        "impactRate": 446.08867764164853,
+        "carbonOffset": 0.11630102075325731,
+        "latitude": 40.54414314,
+        "longitude": -111.88586393,
+        "protocolFee": 18585.73,
+        "publicKey": "0xd9e3f9a20ade252ea41304209102b6ed41dd7fcf8ddfc1dffba1cadc65b66c7e"
+    },
+    "250": {
+        "power": 347.806874,
+        "impactRate": 446.17741951118865,
+        "carbonOffset": 0.15518356666705177,
+        "latitude": 40.43246813,
+        "longitude": -111.7816844,
+        "protocolFee": 22162.07,
+        "publicKey": "0x96421785407e12b91c20bf14dd1677c15e87226ef4fd6168880d3906285e13a2"
+    },
+    "240": {
+        "power": 297.807201,
+        "impactRate": 445.77501510845474,
+        "carbonOffset": 0.1327549616720393,
+        "latitude": 40.71207635,
+        "longitude": -111.86143335,
+        "protocolFee": 15146.84,
+        "publicKey": "0xb4b3f82541fa07cf7c64da427dcadc2ccdadf744fa4d1b5ffe23def9d94df730"
+    },
+    "130": {
+        "power": 152.092506,
+        "impactRate": 290.7984221612424,
+        "carbonOffset": 0.0442277855753461,
+        "latitude": 39.65097095,
+        "longitude": -105.24523176,
+        "protocolFee": 8551.87,
+        "publicKey": "0xcdd1bd9a5f82dfe76e5b7eb0907decd10896719870a1c14a51488df0e363b3ff"
+    },
+    "315": {
+        "power": 333.78598,
+        "impactRate": 299.45959404150085,
+        "carbonOffset": 0.09995482881303101,
+        "latitude": 36.09191,
+        "longitude": -115.14471,
+        "protocolFee": 0.0,
+        "publicKey": "0x0f9898d685c8373266f80d32b49c07831234b6f900df9990ade7a6c02f3493a9"
+    },
+    "115": {
+        "power": 158.22353,
+        "impactRate": 447.79254518217243,
+        "carbonOffset": 0.07085047573139903,
+        "latitude": 40.7805297,
+        "longitude": -111.9200634,
+        "protocolFee": 10353.42,
+        "publicKey": "0xa38e5153d08479d20a56e789bdd07145431dd80b2a7383685dae824946c0f158"
+    },
+    "19": {
+        "power": 505.854837,
+        "impactRate": 266.5509583428066,
+        "carbonOffset": 0.13483559970473277,
+        "latitude": 27.6242976,
+        "longitude": -80.4086131,
+        "protocolFee": 35221.19,
+        "publicKey": "0xc42c83c92e2dbd7fbaf2641bebd7a0f5bda96f8eecc014e33006205091c6d6e8"
+    },
+    "235": {
+        "power": 244.39489,
+        "impactRate": 445.7861438624719,
+        "carbonOffset": 0.108947020836721,
+        "latitude": 40.60687811,
+        "longitude": -111.88323049,
+        "protocolFee": 11898.92,
+        "publicKey": "0x0560069c2c406f771d07d3315ae5840328804fd82851562089899d9e74cc169c"
+    },
+    "160": {
+        "power": 124.46701,
+        "impactRate": 446.022562909771,
+        "carbonOffset": 0.055514249683817365,
+        "latitude": 40.66015229,
+        "longitude": -112.00772743,
+        "protocolFee": 6724.46,
+        "publicKey": "0xa6b7c3b36a0f148b05ebc9aa4d59a9aedfc9814df03c073d1c8cafbe6bec523e"
+    },
+    "310": {
+        "power": 1604.898778,
+        "impactRate": 450.4960862873543,
+        "carbonOffset": 0.7229999583792147,
+        "latitude": 40.759037,
+        "longitude": -111.961401,
+        "protocolFee": 129564.96,
+        "publicKey": "0xf0f82c95fbb23b70092bdc02b3890365112d85cf6e0eb18f4dbb01db8f22630c"
+    },
+    "135": {
+        "power": 27.769834,
+        "impactRate": 425.4207698564506,
+        "carbonOffset": 0.011813864159065834,
+        "latitude": 40.86894605,
+        "longitude": -111.91929202,
+        "protocolFee": 10601.94,
+        "publicKey": "0x8803e98b298fe2b636b3a933b19bd498cd6f8c48799dc6cdc5ec3ecd420c0535"
+    },
+    "140": {
+        "power": 197.200284,
+        "impactRate": 447.41338744375685,
+        "carbonOffset": 0.08822966841874194,
+        "latitude": 40.7497515,
+        "longitude": -111.88192385,
+        "protocolFee": 17044.28,
+        "publicKey": "0x6f845bcf4905b83bf9c58a9e394d1c2616fdb27cb896794ceeeca2af90ea8d7d"
+    },
+    "380": {
+        "power": 272.393697,
+        "impactRate": 445.96150934551014,
+        "carbonOffset": 0.1214770699337654,
+        "latitude": 40.680049,
+        "longitude": -111.8036285,
+        "protocolFee": 0.0,
+        "publicKey": "0xf99b3f8d8950fe1b2bb504c5f87262a55e6b0e1cac54c1fe417af4e4755433d6"
+    },
+    "95": {
+        "power": 278.633231,
+        "impactRate": 299.8427337762151,
+        "carbonOffset": 0.08354610728171791,
+        "latitude": 36.08372,
+        "longitude": -115.10521,
+        "protocolFee": 24764.53,
+        "publicKey": "0xceedc1d9e1552c0c7d8991974060dba85fedbe3b9e0e1a63f382176fef8e50bf"
+    },
+    "65": {
+        "power": 427.970397,
+        "impactRate": 465.07051095523076,
+        "carbonOffset": 0.19903618312807056,
+        "latitude": 38.4428174,
+        "longitude": -85.182987,
+        "protocolFee": 18359.19,
+        "publicKey": "0xe5471d140f70c8b43da885ad9ec2460d030c11b0c5fd593da73af8dc6d8ca26a"
+    },
+    "27": {
+        "power": 523.933595,
+        "impactRate": 445.89966338996766,
+        "carbonOffset": 0.2336218136491953,
+        "latitude": 37.141866,
+        "longitude": -113.311601,
+        "protocolFee": 23451.38,
+        "publicKey": "0x48e8729233008cce25f46bb55e6284000127dc6490022cb54f7e0a9a2d9b0f2b"
+    },
+    "24": {
+        "power": 115.520274,
+        "impactRate": 299.3806473315216,
+        "carbonOffset": 0.03458453077684151,
+        "latitude": 36.00219,
+        "longitude": -115.19912,
+        "protocolFee": 14640.5,
+        "publicKey": "0x30a11294823ba340933958d29e6993df2da5d0c8d81bcc7bd05ebc1474daf274"
+    },
+    "400": {
+        "power": 71.232371,
+        "impactRate": 264.79627761492105,
+        "carbonOffset": 0.018861562106386353,
+        "latitude": 26.53655075,
+        "longitude": -80.10272213,
+        "protocolFee": 0.0,
+        "publicKey": "0xcee65a8b2f2cb0ecf0cce51a901b346f765274a1591099c1295788a4a756cd8a"
+    },
+    "385": {
+        "power": 0.004032,
+        "impactRate": 429.4733044633278,
+        "carbonOffset": 0.0,
+        "latitude": 40.6800606,
+        "longitude": -111.8041376,
+        "protocolFee": 0.0,
+        "publicKey": "0x39fd3777b8d19d6f4a3af61c174d5563fcb3553ca43eba604a78be1e5fd44fac"
+    },
+    "165": {
+        "power": 117.506982,
+        "impactRate": 445.79843361488923,
+        "carbonOffset": 0.05238441550127884,
+        "latitude": 40.73936125,
+        "longitude": -111.86668466,
+        "protocolFee": 7218.99,
+        "publicKey": "0x94096868e0bcd0f348eab0ef02451d6a37ebea5670198b889a60b2f0ea0d2e45"
+    },
+    "20": {
+        "power": 44.174693,
+        "impactRate": 438.49758370923826,
+        "carbonOffset": 0.019370496141597374,
+        "latitude": 41.04555,
+        "longitude": -111.9335,
+        "protocolFee": 13325.83,
+        "publicKey": "0x1db6aa004aec98b202feb7448199c3b909203fb53f9afe94008e96f7d61bee4f"
+    },
+    "245": {
+        "power": 142.546411,
+        "impactRate": 445.07398908398505,
+        "carbonOffset": 0.06344367504709349,
+        "latitude": 40.60707741,
+        "longitude": -111.98156165,
+        "protocolFee": 27993.26,
+        "publicKey": "0xe26051b766788f13be24153ccd5a909002018c80ef99284f592fc8ba15973ef3"
+    },
+    "105": {
+        "power": 1231.169238,
+        "impactRate": 284.283161860554,
+        "carbonOffset": 0.3500000411145099,
+        "latitude": 33.05860321,
+        "longitude": -96.453089,
+        "protocolFee": 64011.84,
+        "publicKey": "0xdc562f79319c6a5b8960a501a6e5ee90c434e5cb0da28f0f8eb2d0c869db1cc6"
+    },
+    "145": {
+        "power": 232.366076,
+        "impactRate": 446.0155135859731,
+        "carbonOffset": 0.1036388654748199,
+        "latitude": 40.35034,
+        "longitude": -111.955996,
+        "protocolFee": 12249.47,
+        "publicKey": "0xc82cf490621935205f9576d3493e2253e9830cf271f56b09e97de61c29c37310"
+    },
+    "80": {
+        "power": 249.598229,
+        "impactRate": 447.06202173090617,
+        "carbonOffset": 0.1115858846579274,
+        "latitude": 37.48056174,
+        "longitude": -113.2313435,
+        "protocolFee": 11966.62,
+        "publicKey": "0xb363b5b12927d2bdb83ec3ff8b46b9c804d93b0b061753fea4f30a3ed14ca88f"
+    },
+    "75": {
+        "power": 441.228071,
+        "impactRate": 444.9191323557615,
+        "carbonOffset": 0.19630996973322665,
+        "latitude": 40.7005542,
+        "longitude": -111.8104434,
+        "protocolFee": 21245.78,
+        "publicKey": "0xd05549b62a1aa2f462d8c33689c7e011e69ef147e44733f9cab0d292bb169f40"
+    },
+    "120": {
+        "power": 165.417453,
+        "impactRate": 446.21412992790323,
+        "carbonOffset": 0.07381075906811228,
+        "latitude": 40.7804908,
+        "longitude": -111.9200363,
+        "protocolFee": 10353.42,
+        "publicKey": "0xaa20dbe7dfec2489de5bb156a1a7efd036adba3722c96ac761c8648a82ba21bd"
+    },
+    "225": {
+        "power": 299.752759,
+        "impactRate": 376.9259185469483,
+        "carbonOffset": 0.11298388419281626,
+        "latitude": 28.32291603,
+        "longitude": -81.4792828,
+        "protocolFee": 15404.43,
+        "publicKey": "0x644416c9b370951d345eb15c4433cbcdc8df0f2f1d79ec989041316f061c605a"
+    },
+    "155": {
+        "power": 0.0,
+        "impactRate": 0.0,
+        "carbonOffset": 0.0,
+        "latitude": 40.59501853,
+        "longitude": -111.92501836,
+        "protocolFee": 13528.19,
+        "publicKey": "0x090691d4cf056c809dfa3dfbe44fa83cfb462cd1d4040fab46b9abf81e051ee9"
+    },
+    "150": {
+        "power": 352.769159,
+        "impactRate": 445.4292091692429,
+        "carbonOffset": 0.15713285783772443,
+        "latitude": 40.65530636,
+        "longitude": -111.85910189,
+        "protocolFee": 25695.14,
+        "publicKey": "0xae9e517741a1bcd6f0862dfa0659edb30ae956d82f2f40546e14eced5d72e291"
+    },
+    "85": {
+        "power": 272.34171,
+        "impactRate": 275.68296201042705,
+        "carbonOffset": 0.07507948051519807,
+        "latitude": 40.043337,
+        "longitude": -104.7650029,
+        "protocolFee": 20288.75,
+        "publicKey": "0xd1984eeb3c7771b3ac7e762cf46659da7b4462685273cece1ba9e0f779e4595a"
+    },
+    "435": {
+        "power": 111.271982,
+        "impactRate": 443.5101242920179,
+        "carbonOffset": 0.04934978004351299,
+        "latitude": 40.69042016,
+        "longitude": -111.96026687,
+        "protocolFee": 14505.87,
+        "publicKey": "0xd65dae31f8426920e4817d25d1bb6318706c6402d69e489114cd8145992bd1ba"
+    },
+    "270": {
+        "power": 547.507672,
+        "impactRate": 444.83293842504503,
+        "carbonOffset": 0.24354944408184323,
+        "latitude": 40.7480239,
+        "longitude": -111.839652,
+        "protocolFee": 31420.46,
+        "publicKey": "0x36bb931b7bf46cb18a6c937809dff364b034ce5250ba2b2ab949016ff6d03221"
+    },
+    "290": {
+        "power": 211.14008,
+        "impactRate": 392.1016219461847,
+        "carbonOffset": 0.08278754469653604,
+        "latitude": 43.18882004,
+        "longitude": -86.18481822,
+        "protocolFee": 0.0,
+        "publicKey": "0xb7fced04589b416b54934b5ca429f559b946d231eb4eeac3a43c4d80f13d71ed"
+    },
+    "390": {
+        "power": 230.818442,
+        "impactRate": 300.82444616517586,
+        "carbonOffset": 0.06943535299216406,
+        "latitude": 39.10444033,
+        "longitude": -108.36537741,
+        "protocolFee": 0.0,
+        "publicKey": "0x83737c76559b3caa09b57b8ed0e9906a2a52e3e55dbc857a1560022ec02a59c7"
+    },
+    "170": {
+        "power": 506.088315,
+        "impactRate": 274.2626516416325,
+        "carbonOffset": 0.13880103315284772,
+        "latitude": 33.05810921,
+        "longitude": -96.45315238,
+        "protocolFee": 32403.89,
+        "publicKey": "0xf804c244a632b7b085c30416021c88954d2f25534433b4394b0a17e2d9f74805"
+    },
+    "375": {
+        "power": 197.396984,
+        "impactRate": 390.5433512818239,
+        "carbonOffset": 0.07709125621478272,
+        "latitude": 43.16041543,
+        "longitude": -85.33293472,
+        "protocolFee": 0.0,
+        "publicKey": "0x7c7fae6dbc86474d4248b839698dbcac7f7cd1e1b4be283b0a18145f268ed4aa"
+    },
+    "110": {
+        "power": 318.221819,
+        "impactRate": 445.7259117536182,
+        "carbonOffset": 0.1418388790513257,
+        "latitude": 40.89671271,
+        "longitude": -111.90160171,
+        "protocolFee": 37312.32,
+        "publicKey": "0x2ec3a847866765a2cd24d8cdcc1448dc4ac8c7b88933e1f2622a9ddfe6644972"
+    },
+    "410": {
+        "power": 0.002994,
+        "impactRate": 430.5911751137323,
+        "carbonOffset": 0.0,
+        "latitude": 40.77879028,
+        "longitude": -111.92011563,
+        "protocolFee": 12210.45,
+        "publicKey": "0x3bea989af58b8dcf779d6e3d88a5b376c5441c4e1772b769e4f42f053c04b89d"
+    },
+    "50": {
+        "power": 100.28928,
+        "impactRate": 409.2571880190735,
+        "carbonOffset": 0.041044089442171146,
+        "latitude": 35.57133,
+        "longitude": -78.79967,
+        "protocolFee": 12904.38,
+        "publicKey": "0xcca99db39baf554d3dc147824be7011c11f64f12164383b1623560cfa1e99a33"
+    },
+    "260": {
+        "power": 190.102221,
+        "impactRate": 446.3259109037006,
+        "carbonOffset": 0.08484670183199768,
+        "latitude": 40.7789829,
+        "longitude": -111.9221352,
+        "protocolFee": 11155.99,
+        "publicKey": "0x670a07aea5b3f5db97a02da12ae59bf141823bf58b8e0a96c5961a8fe424638f"
+    },
+    "415": {
+        "power": 59.632765,
+        "impactRate": 446.3260237985045,
+        "carbonOffset": 0.02661565489056065,
+        "latitude": 40.78926143,
+        "longitude": -111.92724716,
+        "protocolFee": 13238.33,
+        "publicKey": "0xc4e5909edbb74c245d77317af2a7bdffdd5b1f3f0fc9ebd5c1d29de5d55766b1"
+    },
+    "425": {
+        "power": 180.448214,
+        "impactRate": 444.8802329001381,
+        "carbonOffset": 0.08027722835237916,
+        "latitude": 40.74255988,
+        "longitude": -111.87934085,
+        "protocolFee": 13878.3,
+        "publicKey": "0xad29e956af5a678eb4f767353875bbe7b7dfba217842cc27382684a013ec1dd4"
+    },
+    "60": {
+        "power": 105.006683,
+        "impactRate": 308.64942815575694,
+        "carbonOffset": 0.03240964867262264,
+        "latitude": 47.66524,
+        "longitude": -117.09844,
+        "protocolFee": 5932.65,
+        "publicKey": "0x0266517a949ff80ac4268d353e63e3de5f9d31d0984cfb0bc0089249b8c4aac8"
+    },
+    "90": {
+        "power": 218.641702,
+        "impactRate": 269.4801388594079,
+        "carbonOffset": 0.05891909557643785,
+        "latitude": 27.624489,
+        "longitude": -80.40858,
+        "protocolFee": 24690.31,
+        "publicKey": "0x46027fb50964069e837b42604935f11061d2ada9c5d1e5bc435b4827e6de17d8"
+    },
+    "275": {
+        "power": 256.44182,
+        "impactRate": 299.21169656770616,
+        "carbonOffset": 0.07673037800668703,
+        "latitude": 39.07125062,
+        "longitude": -108.47140903,
+        "protocolFee": 15399.51,
+        "publicKey": "0x62b5012970d8740758cb74d5762057c9e1ff0a78b433049c9f25324b285ef414"
+    },
+    "405": {
+        "power": 214.288684,
+        "impactRate": 264.3160066273504,
+        "carbonOffset": 0.05663944926218092,
+        "latitude": 27.24049196,
+        "longitude": -80.82218896,
+        "protocolFee": 10825.74,
+        "publicKey": "0xcd58c2a5c0322e083d51d25a97941b0f25af7da4c80da5751e8cfd7ac5880dc7"
+    },
+    "285": {
+        "power": 203.076165,
+        "impactRate": 347.0688734256142,
+        "carbonOffset": 0.07048075335839196,
+        "latitude": 33.559565,
+        "longitude": -112.064262,
+        "protocolFee": 20164.58,
+        "publicKey": "0xfec66f7fecf30872169a7fc92fa5eeb831e14d87aba175780f475deb8ac12097"
+    },
+    "395": {
+        "power": 250.290792,
+        "impactRate": 313.5467626549387,
+        "carbonOffset": 0.0784778663724189,
+        "latitude": 39.04297549,
+        "longitude": -108.52139445,
+        "protocolFee": 0.0,
+        "publicKey": "0xbd5d02888bd4975079abb48017f53602abf3fe80385006cc2ebca7e2ee004480"
+    },
+    "26": {
+        "power": 163.506785,
+        "impactRate": 446.3872177326827,
+        "carbonOffset": 0.07298705537060049,
+        "latitude": 37.135025,
+        "longitude": -113.644224,
+        "protocolFee": 15893.89,
+        "publicKey": "0xa12b8b72b7315344cf92113bc9a4b697a49b72d18fd249e0ffd4264445f37bbf"
+    },
+    "total": {
+        "devices": 58,
+        "carbonOffset": 5.928437388533397,
+        "power": 15457.238521000001,
+        "impactRate": 387.73890794757716
+    },
+    "week": 43
+}
