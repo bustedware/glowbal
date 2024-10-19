@@ -470,7 +470,12 @@
 
                 if (intersects.length > 0) {
                     const clickedSprite = intersects[0].object;
-                    console.log("You clicked on: " + clickedSprite.userData.title);
+                    const selectedFarm = clickedSprite.userData.title.split(":")[1].slice(1);
+                    console.log("You clicked on farm: " + selectedFarm);
+                    const weekSelector = document.getElementById('weekSelector');
+                    const selectedWeek = weekSelector.options[weekSelector.selectedIndex].value;
+                    const redirectUrl = "https://glow.org/weekly-reports?selectedFarm=" + selectedFarm + "&selectedWeek=" + selectedWeek + "&selectedDataType=watts";
+                    window.open(redirectUrl, '_blank')
                 }
             });
 
