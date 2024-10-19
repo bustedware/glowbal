@@ -1,4 +1,4 @@
-import os, base64, mimetypes, urllib.parse, pymongo, json
+import os, base64, mimetypes, urllib.parse, pymongo, json, pytz
 from datetime import datetime
 from string import Template
 
@@ -46,7 +46,7 @@ def handler(event, context):
     path = event.get('path', '/')
     # If the root is requested, serve the index.html file
     if path == '/' or path == '/index.html':
-        currentWeek = getCurrentWeek(datetime.now().strftime("%Y-%m-%d"))
+        currentWeek = getCurrentWeek(datetime.now(pytz.timezone('EST')).strftime("%Y-%m-%d"))
         daoclient = pymongo.MongoClient(conn_str, serverSelectionTimeoutMS=5000)
         weekSummary = daoclient["glow"]["summary"].find_one({"week": currentWeek})
         return serve_html_file('index.html', weekSummary, currentWeek)
@@ -54,7 +54,7 @@ def handler(event, context):
     # If an image asset is requested, serve the image file
     elif "/week" in path:
         if event.get('queryStringParameters'):
-            currentWeek = getCurrentWeek(datetime.now().strftime("%Y-%m-%d"))
+            currentWeek = getCurrentWeek(datetime.now(pytz.timezone('EST')).strftime("%Y-%m-%d"))
             try:
                 week = int(event.get('queryStringParameters').get("id", currentWeek))
                 file_path = os.path.join(os.path.dirname(__file__), f"data/summary_{week}.json")
@@ -70,9 +70,9 @@ def handler(event, context):
                             'body': json.dumps(transformWeekSummary(weekSummary))
                         }
                     else:
-                        return getWeekSummaryFromDatabase(conn_str, currentWeek)
+                        return getWeekSummaryFromDatabase(conn_str, week)
                 else:
-                    return getWeekSummaryFromDatabase(conn_str, currentWeek)
+                    return getWeekSummaryFromDatabase(conn_str, week)
             except:
                 return get404Response()
 
